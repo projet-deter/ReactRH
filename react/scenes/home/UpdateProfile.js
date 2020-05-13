@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 import * as api from '../../services/auth';
 import {useAuth} from '../../provider';
 
 import Form from 'react-native-basic-form';
-import {ErrorText} from '../../components/Shared';
 
 export default function UpdateProfile(props) {
   const {navigation} = props;
@@ -56,9 +55,16 @@ export default function UpdateProfile(props) {
   return (
     <View style={{flex: 1, paddingHorizontal: 16}}>
       <View style={{flex: 1}}>
-        <ErrorText error={error} />
+        <Text style={styles.errorText}>{error}</Text>
         <Form {...formProps} />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  errorText: {
+    marginBottom: 8,
+    color: 'red',
+  },
+});

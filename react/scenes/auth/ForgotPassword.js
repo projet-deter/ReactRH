@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {Alert, View} from 'react-native';
+import {Alert, View, Text, StyleSheet} from 'react-native';
 
 import * as api from '../../services/auth';
 
 import Form from 'react-native-basic-form';
-import {Header, ErrorText} from '../../components/Shared';
 
 export default function ForgotPassword(props) {
   const {navigation} = props;
@@ -37,9 +36,12 @@ export default function ForgotPassword(props) {
   let formProps = {title: 'Submit', fields, onSubmit, loading};
   return (
     <View style={{flex: 1, paddingHorizontal: 16, backgroundColor: '#fff'}}>
-      <Header title={'Recover Password'} />
+      <View style={[styles.header]}>
+        <Text style={styles.headerText}>Recover Password</Text>
+      </View>
+
       <View style={{flex: 1}}>
-        <ErrorText error={error} />
+        <Text style={styles.errorText}>{error}</Text>
         <Form {...formProps} />
       </View>
     </View>
@@ -51,3 +53,22 @@ ForgotPassword.navigationOptions = ({}) => {
     title: ``,
   };
 };
+
+const styles = StyleSheet.create({
+  header: {
+    height: 50,
+    justifyContent: 'center',
+  },
+
+  headerText: {
+    fontSize: 25,
+    color: '#362068',
+    fontWeight: '400',
+    fontFamily: 'Helvetica Neue',
+  },
+
+  errorText: {
+    marginBottom: 8,
+    color: 'red',
+  },
+});

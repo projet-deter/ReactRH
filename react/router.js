@@ -15,8 +15,6 @@ import ForgotPasswordScreen from './scenes/auth/ForgotPassword';
 import HomeScreen from './scenes/home/Home';
 import UpdateProfileScreen from './scenes/home/UpdateProfile';
 
-import {headerStyle, headerTitleStyle} from './theme';
-
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -24,7 +22,6 @@ const HomeStack = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
-    defaultNavigationOptions: () => ({headerStyle, headerTitleStyle}),
   },
 );
 
@@ -38,7 +35,6 @@ const AuthStack = createStackNavigator(
   },
   {
     initialRouteName: 'Login',
-    defaultNavigationOptions: () => ({headerStyle, headerTitleStyle}),
   },
 );
 

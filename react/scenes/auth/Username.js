@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 import * as api from '../../services/auth';
 import {useAuth} from '../../provider';
 
 import Form from 'react-native-basic-form';
-import {Header, ErrorText} from '../../components/Shared';
 
 export default function Username(props) {
   const {navigation} = props;
@@ -36,9 +35,11 @@ export default function Username(props) {
   let formProps = {title: 'Submit', fields, onSubmit, loading};
   return (
     <View style={{flex: 1, paddingHorizontal: 16, backgroundColor: '#fff'}}>
-      <Header title={'Select Username'} />
+      <View style={[styles.header]}>
+        <Text style={styles.headerText}>Username</Text>
+      </View>
       <View style={{flex: 1}}>
-        <ErrorText error={error} />
+        <Text style={styles.errorText}>{error}</Text>;
         <Form {...formProps} />
       </View>
     </View>
@@ -50,3 +51,22 @@ Username.navigationOptions = ({}) => {
     title: ``,
   };
 };
+
+const styles = StyleSheet.create({
+  header: {
+    height: 50,
+    justifyContent: 'center',
+  },
+
+  headerText: {
+    fontSize: 25,
+    color: '#362068',
+    fontWeight: '400',
+    fontFamily: 'Helvetica Neue',
+  },
+
+  errorText: {
+    marginBottom: 8,
+    color: 'red',
+  },
+});

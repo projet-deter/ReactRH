@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import * as api from '../../services/auth';
 import {useAuth} from '../../provider';
 
 import Form from 'react-native-basic-form';
-import CTA from '../../components/CTA';
-import {Header, ErrorText} from '../../components/Shared';
 
 export default function Login(props) {
   const {navigation} = props;
@@ -22,46 +20,52 @@ export default function Login(props) {
     {name: 'password', label: 'Password', required: true, secure: true},
   ];
 
-  function onSubmit(state) {
+  async function onSubmit(state) {
     setLoading(true);
 
-    return handleLogin({token: 'toto', user: {username: 'Maxime'}})
-      .then(() => {
-        setLoading(false);
-        let username = 'Maxime'; //response.user.username !== null;
-        console.log(username);
-        if (username) {
-          navigate('App');
-        } else {
-          navigation.replace('Username');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error.message);
-        setLoading(false);
-      });
+    try {
+      let response = await api.login(state);
+      await handleLogin(response);
+
+      setLoading(false);
+
+      //check if username is null
+      let username = response.user.username !== null;
+      if (username) {
+        navigate('App');
+      } else {
+        navigation.replace('Username');
+      }
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   }
 
   let formProps = {title: 'Login', fields, onSubmit, loading};
   return (
     <View style={{flex: 1, paddingHorizontal: 16, backgroundColor: '#fff'}}>
-      <Header title={'Login'} />
+      <View style={[styles.header]}>
+        <Text style={styles.headerText}>Login</Text>
+      </View>
       <View style={{flex: 1}}>
-        <ErrorText error={error} />
-        <Form {...formProps}>
-          <CTA
-            ctaText={'Forgot Password?'}
-            onPress={() => navigation.navigate('ForgotPassword')}
-            style={{marginTop: 20}}
-          />
+        <Text style={styles.errorText}>{error}</Text>
 
-          <CTA
-            title={"Don't have an account?"}
-            ctaText={'Register'}
-            onPress={() => navigation.replace('Register')}
-            style={{marginTop: 50}}
-          />
+        <Form {...formProps}>
+          <View style={[styles.footer]}>
+            <Text style={[styles.footerText]}>Forgot Password? </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgotPassword')}>
+              <Text style={[styles.footerCTA]}>Change</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.footer]}>
+            <Text style={[styles.footerText]}>Don't have an account? </Text>
+            <TouchableOpacity onPress={() => navigation.replace('Register')}>
+              <Text style={[styles.footerCTA]}>Register</Text>
+            </TouchableOpacity>
+          </View>
         </Form>
       </View>
     </View>
@@ -73,3 +77,40 @@ Login.navigationOptions = ({}) => {
     title: ``,
   };
 };
+
+const styles = StyleSheet.create({
+  header: {
+    height: 50,
+    justifyContent: 'center',
+  },
+
+  headerText: {
+    fontSize: 25,
+    color: '#362068',
+    fontWeight: '400',
+    fontFamily: 'Helvetica Neue',
+  },
+  footer: {
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  footerText: {
+    fontSize: 16,
+    fontFamily: 'Helvetica Neue',
+    color: '#636466',
+  },
+
+  footerCTA: {
+    fontSize: 16,
+    color: '#733AC2',
+    fontWeight: '500',
+    fontFamily: 'Helvetica Neue',
+  },
+  errorText: {
+    marginBottom: 8,
+    color: 'red',
+  },
+});
