@@ -22,26 +22,25 @@ export default function Login(props) {
     {name: 'password', label: 'Password', required: true, secure: true},
   ];
 
-  async function onSubmit(state) {
+  function onSubmit(state) {
     setLoading(true);
 
-    try {
-      let response = await api.login(state);
-      await handleLogin(response);
-
-      setLoading(false);
-
-      //check if username is null
-      let username = response.user.username !== null;
-      if (username) {
-        navigate('App');
-      } else {
-        navigation.replace('Username');
-      }
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-    }
+    return handleLogin({token: 'toto', user: {username: 'Maxime'}})
+      .then(() => {
+        setLoading(false);
+        let username = 'Maxime'; //response.user.username !== null;
+        console.log(username);
+        if (username) {
+          navigate('App');
+        } else {
+          navigation.replace('Username');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setError(error.message);
+        setLoading(false);
+      });
   }
 
   let formProps = {title: 'Login', fields, onSubmit, loading};
