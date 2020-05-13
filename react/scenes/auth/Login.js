@@ -23,23 +23,30 @@ export default function Login(props) {
   async function onSubmit(state) {
     setLoading(true);
 
-    try {
-      let response = await api.login(state);
-      await handleLogin(response);
+    return handleLogin({
+      token: 'toto',
+      user: {
+        // /admin: true,
+        username: 'Maxime',
+        firstname: 'Maxime',
+        lastname: 'Toto',
+      },
+    })
+      .then(() => {
+        setLoading(false);
+        let username = 'Maxime'; //response.user.username !== null;
 
-      setLoading(false);
-
-      //check if username is null
-      let username = response.user.username !== null;
-      if (username) {
-        navigate('App');
-      } else {
-        navigation.replace('Username');
-      }
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-    }
+        if (username) {
+          navigate('App');
+        } else {
+          navigation.replace('Username');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setError(error.message);
+        setLoading(false);
+      });
   }
 
   let formProps = {title: 'Login', fields, onSubmit, loading};
