@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {Text, View, Button} from 'react-native';
+import {Text, View, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import {Avatar, Title} from 'react-native-paper';
 import Form from 'react-native-basic-form';
 import CTA from '../components/CTA';
@@ -41,27 +41,41 @@ export default function Home(props) {
         style={{
           flex: 1,
         }}>
-        <View style={{alignSelf: 'center'}}>
-          <Avatar.Text
-            size={72}
-            style={{alignSelf: 'center'}}
-            label={
-              user.firstname.substring(0, 1).toUpperCase() +
-              user.lastname.substring(0, 1).toUpperCase()
-            }
-          />
-          <Title>{`${user.firstname} ${user.lastname}`}</Title>
-        </View>
+        <Avatar.Text
+          size={72}
+          style={{alignSelf: 'center'}}
+          label={
+            user
+              ? user.firstname.substring(0, 1).toUpperCase()
+              : '' + user
+              ? user.lastname.substring(0, 1).toUpperCase()
+              : ''
+          }
+        />
+        <Title style={{alignSelf: 'center'}}>{`${user ? user.firstname : ''} ${
+          user ? user.lastname : ''
+        }`}</Title>
 
-        <Form {...formProps} />
+        <Form {...formProps}>
+          <View style={[styles.footer]}>
+            <TouchableOpacity
+              onPress={() => {
+                handleLogout();
+                replace('Login');
+              }}>
+              <Text style={[styles.footerCTA]}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </Form>
 
-        <CTA
+        {/* <CTA
           ctaText={'Logout'}
           onPress={() => {
-            handleLogout();
-            navigate('AuthStack');
+            // handleLogout();
+            console.log(navigate, navigator);
+            replace('Login');
           }}
-        />
+        /> */}
 
         {/* <Button
           title={'Update Profile'}
@@ -71,3 +85,40 @@ export default function Home(props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    height: 50,
+    justifyContent: 'center',
+  },
+
+  headerText: {
+    fontSize: 25,
+    color: '#362068',
+    fontWeight: '400',
+    fontFamily: 'Helvetica Neue',
+  },
+  footer: {
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  footerText: {
+    fontSize: 16,
+    fontFamily: 'Helvetica Neue',
+    color: '#636466',
+  },
+
+  footerCTA: {
+    fontSize: 16,
+    color: '#733AC2',
+    fontWeight: '500',
+    fontFamily: 'Helvetica Neue',
+  },
+  errorText: {
+    marginBottom: 8,
+    color: 'red',
+  },
+});

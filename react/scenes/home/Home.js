@@ -26,11 +26,11 @@ export default function Home(props) {
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'Offres') {
               iconName = focused
                 ? 'ios-information-circle'
                 : 'ios-information-cirrcle-outline';
-            } else if (route.namer === 'Settings') {
+            } else if (route.namer === 'Ajouter une offre') {
               iconName = focused ? 'ios-list-box' : 'ios-list';
             }
 
@@ -42,10 +42,10 @@ export default function Home(props) {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
         }}>
-        {user.admin && <Tab.Screen name="Home" component={Offers} />}
-        {user.admin && <Tab.Screen name="Home2" component={Offers} />}
-        {!user.admin && <Tab.Screen name="Offres" component={Offers} />}
-        {!user.admin && (
+        {user && user.admin && <Tab.Screen name="Home" component={Offers} />}
+        {user && user.admin && <Tab.Screen name="Home2" component={Offers} />}
+        {user && !user.admin && <Tab.Screen name="Offres" component={Offers} />}
+        {user && !user.admin && (
           <Tab.Screen name="Ajouter une offre" component={AddToken} />
         )}
         <Tab.Screen name="Profile" component={Profile} />

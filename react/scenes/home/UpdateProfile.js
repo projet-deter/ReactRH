@@ -46,7 +46,7 @@ export default function UpdateProfile(props) {
 
       navigation.goBack();
     } catch (error) {
-      setError(error.message);
+      setError(c.message);
       setLoading(false);
     }
   }

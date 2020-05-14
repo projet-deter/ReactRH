@@ -10,7 +10,7 @@ import React from 'react';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />;
 
-const MyComponent = ({item}) => (
+const MyComponent = ({item, onSelect}) => (
   <>
     <Card key={item.id}>
       {/* <Card.Cover style={{backgroundColor: 'blue'}} /> */}
@@ -21,7 +21,7 @@ const MyComponent = ({item}) => (
       </Card.Content>
 
       <Card.Actions style={{alignSelf: 'center'}}>
-        <Button mode="contained" icon="camera">
+        <Button onPress={() => onSelect(item)} mode="contained" icon="camera">
           Voir
         </Button>
       </Card.Actions>

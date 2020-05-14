@@ -1,18 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, View, Button} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {useAuth} from '../../provider';
 import Card from '../Library/Card';
+import Offer from './Offer';
 
 const Tab = createBottomTabNavigator();
 
 export default function Offers(props) {
   const {navigate} = props.navigation;
 
+  const [offre, setOffre] = useState(null);
   const {state, handleLogout} = useAuth();
   const user = state.user;
+
+  function onSelect(item) {
+    setOffre(item);
+  }
+
+  function goBack() {
+    setOffre(null);
+  }
 
   const offres = [
     {
@@ -50,7 +60,12 @@ export default function Offers(props) {
     },
   ];
 
+  if (offre) return <Offer goBack={() => goBack()} data={offre} />;
+
   return (
-    <FlatList data={offres} renderItem={({item}) => <Card item={item} />} />
+    <FlatList
+      data={offres}
+      renderItem={({item}) => <Card item={item} onSelect={i => onSelect(i)} />}
+    />
   );
 }

@@ -19,6 +19,7 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     UpdateProfile: UpdateProfileScreen,
+    Login: LoginScreen,
   },
   {
     initialRouteName: 'Home',
