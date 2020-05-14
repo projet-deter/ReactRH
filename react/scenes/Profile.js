@@ -1,40 +1,62 @@
 import React, {useState} from 'react';
-
-import {
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import RNFS from 'react-native-fs';
+import {View, ScrollView} from 'react-native';
 import {Avatar, Title} from 'react-native-paper';
-import Form from 'react-native-basic-form';
-import CTA from '../components/CTA';
+import Form, {TYPES} from 'react-native-basic-form';
 
+import DocumentPicker from 'react-native-document-picker';
 import {useAuth} from '../provider';
 
 export default function Home(props) {
-  const {navigate, replace} = props.navigation;
   const [loading, setLoading] = useState(false);
   function onSubmit(state) {
     setLoading(true);
   }
 
-  const {state, handleLogout} = useAuth();
+  const {state} = useAuth();
   const user = state.user;
 
   const fields = [
     {name: 'firstname', label: 'Prénom'},
     {name: 'lastname', label: 'Nom'},
+    {name: 'image', label: 'Profile Image', type: TYPES.Image},
+    {name: 'birthdate', label: 'Date de naissance', type: TYPES.Date},
   ];
+
+  async function showImagePicker() {
+    console.log('try to pickup image');
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+
+      console.log(
+        res.uri,
+        res.type, // mime type
+        res.name,
+        res.size,
+      );
+    } catch (err) {
+      console.log(err);
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+  }
 
   let formProps = {
     title: 'Valider',
     fields,
     onSubmit,
     loading,
-    initialData: {...user},
+    initialData: {
+      ...user,
+      image:
+        'http://res.cloudinary.com/ddv9bxonm/image/upload/v1585512850/ib9c0dml4dlksi8xgvob.jpg',
+    },
+    showImagePicker: showImagePicker,
   };
   return (
     <ScrollView
@@ -49,14 +71,14 @@ export default function Home(props) {
           flex: 1,
         }}>
         <View style={{alignSelf: 'center'}}>
-          <Avatar.Text
+          <Avatar.Image
             size={72}
             style={{alignSelf: 'center'}}
-            label={
-              user.firstname.substring(0, 1).toUpperCase() +
-              user.lastname.substring(0, 1).toUpperCase()
+            source={
+              'http://res.cloudinary.com/ddv9bxonm/image/upload/v1585512850/ib9c0dml4dlksi8xgvob.jpg'
             }
           />
+
           <Title>{`${user.firstname} ${user.lastname}`}</Title>
         </View>
         <View
