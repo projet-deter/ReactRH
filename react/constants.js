@@ -1,9 +1,9 @@
 //API URL
-export const API_URL = '';
+export const API_URL = 'https://localhost:8443';
 
 //API End Points
-export const REGISTER = `${API_URL}/auth/register`;
-export const LOGIN = `${API_URL}/auth/login`;
+export const REGISTER = `${API_URL}/register`;
+export const LOGIN = `${API_URL}/login_check`;
 
 export const UPDATE_PROFILE = `${API_URL}/user`;
 

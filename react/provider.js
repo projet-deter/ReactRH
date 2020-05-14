@@ -16,7 +16,7 @@ const AuthContext = React.createContext();
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState || {});
 
-  // Get Auth state =================================== RETURN DATA USER si loggin
+  // Get Auth state =================================== RETURN DATA USER si login
   const getAuthState = async () => {
     try {
       //GET TOKEN && USER
@@ -43,8 +43,10 @@ function AuthProvider(props) {
   const handleLogin = async data => {
     try {
       //STORE DATA
-      let {token, user} = data;
-      let data_ = [[USER_KEY, JSON.stringify(user)], [TOKEN_KEY, token]];
+      console.log(data);
+      let {token} = data;
+
+      let data_ = [[TOKEN_KEY, token]];
 
       // Stocker plusieurs paires clé-valeur. Une fois l'opération terminée, on recois un seul rappel avec nptq erreurs:
       await AsyncStorage.multiSet(data_);

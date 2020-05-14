@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useAuth} from '../../provider';
 
-import Offers from '../Candidate/Offers';
+import OffersCandidat from '../Candidate/Offers';
 import AddToken from '../Candidate/AddToken';
 import Profile from '../Profile';
 
@@ -31,7 +31,7 @@ export default function Home(props) {
                 iconName = focused
                   ? 'ios-information-circle'
                   : 'ios-information-cirrcle-outline';
-              } else if (route.namer === 'Ajouter une offre') {
+              } else if (route.name === 'Ajouter une offre') {
                 iconName = focused ? 'ios-list-box' : 'ios-list';
               }
 
@@ -43,10 +43,12 @@ export default function Home(props) {
             activeTintColor: 'tomato',
             inactiveTintColor: 'gray',
           }}>
-          {user && user.admin && <Tab.Screen name="Home" component={Offers} />}
-          {user && user.admin && <Tab.Screen name="Home2" component={Offers} />}
+          {<Tab.Screen name="Home" component={OffersCandidat} />}
+          {user && user.admin && (
+            <Tab.Screen name="Home2" component={OffersCandidat} />
+          )}
           {user && !user.admin && (
-            <Tab.Screen name="Offres" component={Offers} />
+            <Tab.Screen name="Offres" component={OffersCandidat} />
           )}
           {user && !user.admin && (
             <Tab.Screen name="Ajouter une offre" component={AddToken} />

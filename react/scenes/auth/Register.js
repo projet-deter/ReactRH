@@ -15,22 +15,15 @@ export default function Register(props) {
   const options = [{label: 'Admin', value: 1}, {label: 'User', value: 2}];
 
   const fields = [
-    {
-      name: 'role',
-      label: 'Role',
-      required: true,
-      type: TYPES.Dropdown,
-      options: options,
-    },
-    {name: 'email', label: 'Email Address', required: true},
-    {name: 'password', label: 'Password', required: true, secure: true},
+    {name: '_username', label: 'Email Address', required: true},
+    {name: '_password', label: 'Password', required: true, secure: true},
   ];
 
   async function onSubmit(state) {
     setLoading(true);
 
     try {
-      let response = await api.register(state);
+      let response = await api.register(state._username, state._password);
       setLoading(false);
       Alert.alert(
         'Registration Successful',

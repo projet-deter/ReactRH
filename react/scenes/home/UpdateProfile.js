@@ -19,19 +19,19 @@ export default function UpdateProfile(props) {
       name: 'firstName',
       label: 'First Name',
       required: true,
-      value: state.user.firstName,
+      // value: state.user.firstName,
     },
     {
       name: 'lastName',
       label: 'Last Name',
       required: true,
-      value: state.user.lastName,
+      //  value: state.user.lastName,
     },
     {
       name: 'username',
       label: 'Username',
       required: true,
-      value: state.user.username,
+      //  value: state.user.username,
     },
   ];
 

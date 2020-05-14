@@ -9,6 +9,7 @@ import {useAuth} from '../provider';
 
 export default function Home(props) {
   const [loading, setLoading] = useState(false);
+
   function onSubmit(state) {
     setLoading(true);
   }
@@ -16,11 +17,21 @@ export default function Home(props) {
   const {state} = useAuth();
   const user = state.user;
 
+  const options = [{label: 'Female', value: 1}, {label: 'Male', value: 2}];
+
   const fields = [
-    {name: 'firstname', label: 'Prénom'},
-    {name: 'lastname', label: 'Nom'},
+    {name: 'username', label: 'Username'},
     {name: 'image', label: 'Profile Image', type: TYPES.Image},
-    {name: 'birthdate', label: 'Date de naissance', type: TYPES.Date},
+    {name: 'birthdate', label: 'Age', type: TYPES.Number},
+    {
+      name: 'sexe',
+      label: 'Sexe',
+      required: true,
+      type: TYPES.Dropdown,
+      options: options,
+    },
+    {name: 'email', label: 'Email'},
+    {name: 'adresse', label: 'Adresse'},
   ];
 
   async function showImagePicker() {
@@ -79,7 +90,7 @@ export default function Home(props) {
             }
           />
 
-          <Title>{`${user.firstname} ${user.lastname}`}</Title>
+          <Title>{`${user} `}</Title>
         </View>
         <View
           style={{
