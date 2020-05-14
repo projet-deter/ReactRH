@@ -17,22 +17,22 @@ import UpdateProfileScreen from './scenes/home/UpdateProfile';
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    ReactRH: HomeScreen,
     UpdateProfile: UpdateProfileScreen,
     Login: LoginScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'ReactRH',
   },
 );
 
 //Create Routes
 const AuthStack = createStackNavigator(
   {
-    Register: RegisterScreen,
-    Login: LoginScreen,
-    Username: UsernameScreen,
-    ForgotPassword: ForgotPasswordScreen,
+    Register: {screen: RegisterScreen},
+    Login: {screen: LoginScreen},
+    Username: {screen: UsernameScreen},
+    ForgotPassword: {screen: ForgotPasswordScreen},
   },
   {
     initialRouteName: 'Login',

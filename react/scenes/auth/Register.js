@@ -12,7 +12,7 @@ export default function Register(props) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const options = [{label: 'Admin', value: 0}, {label: 'User', value: 1}];
+  const options = [{label: 'Admin', value: 1}, {label: 'User', value: 2}];
 
   const fields = [
     {

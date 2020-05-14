@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {Text, View, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import {Avatar, Title} from 'react-native-paper';
 import Form from 'react-native-basic-form';
 import CTA from '../components/CTA';
@@ -41,42 +41,31 @@ export default function Home(props) {
         style={{
           flex: 1,
         }}>
-        <Avatar.Text
-          size={72}
-          style={{alignSelf: 'center'}}
-          label={
-            user
-              ? user.firstname.substring(0, 1).toUpperCase()
-              : '' + user
-              ? user.lastname.substring(0, 1).toUpperCase()
-              : ''
-          }
-        />
-        <Title style={{alignSelf: 'center'}}>{`${user ? user.firstname : ''} ${
-          user ? user.lastname : ''
-        }`}</Title>
+        <View style={{alignSelf: 'center'}}>
+          <Avatar.Text
+            size={72}
+            style={{alignSelf: 'center'}}
+            label={
+              user.firstname.substring(0, 1).toUpperCase() +
+              user.lastname.substring(0, 1).toUpperCase()
+            }
+          />
+          <Title>{`${user.firstname} ${user.lastname}`}</Title>
+        </View>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <Form {...formProps} />
 
-        <Form {...formProps}>
-          <View style={[styles.footer]}>
-            <TouchableOpacity
-              onPress={() => {
-                handleLogout();
-                replace('Login');
-              }}>
-              <Text style={[styles.footerCTA]}>Logout</Text>
-            </TouchableOpacity>
-          </View>
-        </Form>
-
-        {/* <CTA
-          ctaText={'Logout'}
-          onPress={() => {
-            // handleLogout();
-            console.log(navigate, navigator);
-            replace('Login');
-          }}
-        /> */}
-
+          <CTA
+            ctaText={'Logout'}
+            onPress={() => {
+              handleLogout();
+              navigate('Auth');
+            }}
+          />
+        </View>
         {/* <Button
           title={'Update Profile'}
           onPress={() => navigate('UpdateProfile')}

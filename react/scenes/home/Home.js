@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Text, View, Button, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -20,36 +20,47 @@ export default function Home(props) {
   const user = state.user;
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
-            let iconName;
+    <>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName;
 
-            if (route.name === 'Offres') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-cirrcle-outline';
-            } else if (route.namer === 'Ajouter une offre') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
-            }
+              if (route.name === 'Offres') {
+                iconName = focused
+                  ? 'ios-information-circle'
+                  : 'ios-information-cirrcle-outline';
+              } else if (route.namer === 'Ajouter une offre') {
+                iconName = focused ? 'ios-list-box' : 'ios-list';
+              }
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'gray',
-        }}>
-        {user && user.admin && <Tab.Screen name="Home" component={Offers} />}
-        {user && user.admin && <Tab.Screen name="Home2" component={Offers} />}
-        {user && !user.admin && <Tab.Screen name="Offres" component={Offers} />}
-        {user && !user.admin && (
-          <Tab.Screen name="Ajouter une offre" component={AddToken} />
-        )}
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
+              // You can return any component that you like here!
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+          tabBarOptions={{
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+          }}>
+          {user && user.admin && <Tab.Screen name="Home" component={Offers} />}
+          {user && user.admin && <Tab.Screen name="Home2" component={Offers} />}
+          {user && !user.admin && (
+            <Tab.Screen name="Offres" component={Offers} />
+          )}
+          {user && !user.admin && (
+            <Tab.Screen name="Ajouter une offre" component={AddToken} />
+          )}
+          <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+      </NavigationContainer>
+      <Button
+        title={'Log Out'}
+        onPress={() => {
+          handleLogout();
+          navigate('Auth');
+        }}
+      />
+    </>
   );
 }
