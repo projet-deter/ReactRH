@@ -43,7 +43,9 @@ export default function Home(props) {
             activeTintColor: 'tomato',
             inactiveTintColor: 'gray',
           }}>
-          {<Tab.Screen name="Home" component={OffersCandidat} />}
+          {user && user.admin && (
+            <Tab.Screen name="Home" component={OffersCandidat} />
+          )}
           {user && user.admin && (
             <Tab.Screen name="Home2" component={OffersCandidat} />
           )}

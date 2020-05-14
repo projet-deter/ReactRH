@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import RNFS from 'react-native-fs';
 import {View, ScrollView} from 'react-native';
-import {Avatar, Title} from 'react-native-paper';
+import {Avatar, Title, Subheading} from 'react-native-paper';
 import Form, {TYPES} from 'react-native-basic-form';
 
 import DocumentPicker from 'react-native-document-picker';
@@ -21,7 +21,6 @@ export default function Home(props) {
 
   const fields = [
     {name: 'username', label: 'Username'},
-    {name: 'image', label: 'Profile Image', type: TYPES.Image},
     {name: 'birthdate', label: 'Age', type: TYPES.Number},
     {
       name: 'sexe',
@@ -30,7 +29,6 @@ export default function Home(props) {
       type: TYPES.Dropdown,
       options: options,
     },
-    {name: 'email', label: 'Email'},
     {name: 'adresse', label: 'Adresse'},
   ];
 
@@ -74,7 +72,6 @@ export default function Home(props) {
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        paddingVertical: 20,
         backgroundColor: '#fff',
       }}>
       <View
@@ -90,7 +87,8 @@ export default function Home(props) {
             }
           />
 
-          <Title>{`${user} `}</Title>
+          <Title>{`${user.username} `}</Title>
+          <Subheading>{`${user.username} `}</Subheading>
         </View>
         <View
           style={{

@@ -35,6 +35,7 @@ export default function Offers(props) {
       begin: '13-05-2020 à 19:20:03',
       contract: 'Stage',
       place: '75012 - Paris',
+      statut: 'new',
     },
     {
       id: 2,
@@ -46,6 +47,7 @@ export default function Offers(props) {
       begin: '13-05-2020 à 19:20:03',
       contract: 'Stage',
       place: '75012 - Paris',
+      statut: 'done',
     },
     {
       id: 3,
@@ -55,8 +57,9 @@ export default function Offers(props) {
       description:
         'Membre de l’équipe à part entière et encadré par le Responsable Web Marketing et le Content Manager, vous aurez pour mission de nous aider à créer et diffuser nos contenus sur nos différents sites web et réseaux sociaux.**Vos tâches seront variées et enrichissantes (loin du café-photocopie) :**En conformité avec la charte graphique de SOS Accessoire, vous participerez à la :* Production de divers support de communication (flyers, affiche, bannières...)* Graphisme E-mailings / newsletter / pages web* Réalisation de bannières web (FB , site, Adwords..)* Shooting photo* Mises en conformité de documents existants',
       begin: '13-05-2020 à 19:20:03',
-      contract: 'Stage',
+      contract: '<Sta></Sta>ge',
       place: '75012 - Paris',
+      statut: 'new',
     },
   ];
 

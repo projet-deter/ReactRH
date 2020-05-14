@@ -7,7 +7,14 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {Avatar, Title, Paragraph, Subheading, Button} from 'react-native-paper';
+import {
+  Avatar,
+  Title,
+  Paragraph,
+  Subheading,
+  Button,
+  Badge,
+} from 'react-native-paper';
 import Form from 'react-native-basic-form';
 
 import {useAuth} from '../../provider';
@@ -60,7 +67,11 @@ export default function Home(props) {
         <Subheading>{offre.place}</Subheading>
         <Paragraph>{offre.description}</Paragraph>
 
-        <Form {...formProps} />
+        {offre.statut === 'new' ? (
+          <Form {...formProps} />
+        ) : (
+          <Badge>{'Déjà postulé'}</Badge>
+        )}
       </View>
     </ScrollView>
   );
