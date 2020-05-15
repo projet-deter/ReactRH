@@ -7,8 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useAuth} from '../../provider';
 
-import Offers from '../Candidate/Offers';
-import AddToken from '../Candidate/AddToken';
+import OffersCandidate from '../Candidate/Offers';
+import OffersRecruiter from '../Recruiter/Offers';
+import FormOffer from '../Recruiter/FormOffer';
 import Profile from '../Profile';
 
 const Tab = createBottomTabNavigator();
@@ -31,7 +32,7 @@ export default function Home(props) {
                 iconName = focused
                   ? 'ios-information-circle'
                   : 'ios-information-cirrcle-outline';
-              } else if (route.namer === 'Ajouter une offre') {
+              } else if (route.name === 'Ajouter une offre') {
                 iconName = focused ? 'ios-list-box' : 'ios-list';
               }
 
@@ -43,14 +44,12 @@ export default function Home(props) {
             activeTintColor: 'tomato',
             inactiveTintColor: 'gray',
           }}>
-          {user && user.admin && <Tab.Screen name="Home" component={Offers} />}
-          {user && user.admin && <Tab.Screen name="Home2" component={Offers} />}
-          {user && !user.admin && (
-            <Tab.Screen name="Offres" component={Offers} />
-          )}
-          {user && !user.admin && (
-            <Tab.Screen name="Ajouter une offre" component={AddToken} />
-          )}
+          {/* {user && user.admin && (
+            <Tab.Screen name="Home" component={OffersRecruiter} />
+          )} */}
+          <Tab.Screen name="Home" component={OffersCandidate} />
+          <Tab.Screen name="Offres" component={OffersRecruiter} />
+          <Tab.Screen name="Ajouter une offre" component={FormOffer} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       </NavigationContainer>

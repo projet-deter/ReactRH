@@ -26,7 +26,7 @@ export default function Login(props) {
     return handleLogin({
       token: 'toto',
       user: {
-        // /admin: true,
+        admin: true,
         username: 'Maxime',
         firstname: 'Maxime',
         lastname: 'Toto',
