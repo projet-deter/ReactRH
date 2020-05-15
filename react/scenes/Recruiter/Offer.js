@@ -47,10 +47,10 @@ export default function Offer(props) {
         <Subheading>{offer.place}</Subheading>
         <Paragraph>{offer.description}</Paragraph>
 
-        <List>{offer.candidates}</List>
+        {/* <List>{offer.candidates}</List> */}
 
-        <Button onPress={() => props.inviteCandidate()}>Inviter</Button>
-        <Button onPress={() => props.deleteOffer()}>Supprimer</Button>
+        <Button>Inviter</Button>
+        <Button>Supprimer</Button>
       </View>
     </ScrollView>
   );
