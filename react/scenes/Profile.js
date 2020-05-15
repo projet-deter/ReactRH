@@ -113,8 +113,7 @@ export default function Profile(props) {
             }
           />
 
-          <Title>{`${user} `}</Title>
-          <Subheading>{`${user} `}</Subheading>
+          <Title>{`${user.username} `}</Title>
         </View>
         <View
           style={{

@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import * as api from '../../services/auth';
 import {useAuth} from '../../provider';
 
-import Form from 'react-native-basic-form';
+import Form, {TYPES} from 'react-native-basic-form';
 
 export default function Login(props) {
   const {navigation} = props;
@@ -20,13 +20,21 @@ export default function Login(props) {
     {name: 'password', label: 'Password', required: true, secure: true},
   ];
 
-  async function onSubmit(state) {
+  async function onSubmit(state, admin = false) {
     setLoading(true);
 
     try {
-      let response = await api.login(state);
+      //let response = await api.login(state);
 
-      await handleLogin(response);
+      await handleLogin({
+        token: 'toto',
+        user: {
+          admin: true,
+          username: 'Ameena',
+          firstname: 'Ameena',
+          lastname: 'Aziz',
+        },
+      });
 
       setLoading(false);
 
