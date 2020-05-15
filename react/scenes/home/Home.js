@@ -49,10 +49,8 @@ export default function Home(props) {
           {user && user.admin && (
             <Tab.Screen name="Home2" component={OffersCandidat} />
           )}
-          {user && !user.admin && (
-            <Tab.Screen name="Offres" component={OffersCandidat} />
-          )}
-          {user && !user.admin && (
+          {<Tab.Screen name="Offres" component={OffersCandidat} />}
+          {user && user.admin && (
             <Tab.Screen name="Ajouter une offre" component={AddToken} />
           )}
           <Tab.Screen name="Profile" component={Profile} />

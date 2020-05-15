@@ -1,6 +1,7 @@
 //Action Types
 export const LOGGED_IN = 'auth/LOGGED_IN';
 export const LOGGED_OUT = 'auth/LOGGED_OUT';
+export const GET_OFFER = 'auth/GET_OFFER';
 
 export const initialState = {
   isLoggedIn: false,
@@ -26,3 +27,16 @@ const authReducer = (state = initialState, action) => {
 };
 
 export default authReducer;
+
+export const offerReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_OFFER: {
+      let {offer} = action;
+
+      return {...state, isLoggedIn: true, offer};
+    }
+
+    default:
+      return state;
+  }
+};

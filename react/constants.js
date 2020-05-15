@@ -13,5 +13,4 @@ export const FORGOT_PASSWORD = `${API_URL}/auth/recover`;
 export const ADMIN_OFFERS = `${API_URL}/admin/offers`;
 export const ADMIN_OFFER = `${API_URL}/admin/offers/{id}`;
 
-export const CANDIDAT_OFFERS = `${API_URL}/candidat/offers`;
-export const CANDIDAT_CANDIDATURE = `${API_URL}/candidat/offers/{id}`;
+export const CANDIDAT_OFFER_SHOW = `${API_URL}/candidat/offer`;

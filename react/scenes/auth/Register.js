@@ -12,7 +12,10 @@ export default function Register(props) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const options = [{label: 'Admin', value: 1}, {label: 'User', value: 2}];
+  const options = [
+    {label: 'Recruteur', value: 1},
+    {label: 'Candidat', value: 2},
+  ];
 
   const fields = [
     {name: '_username', label: 'Email Address', required: true},

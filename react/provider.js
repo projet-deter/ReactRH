@@ -3,7 +3,12 @@ import {AsyncStorage} from 'react-native';
 import axios from 'axios';
 
 //IMPORT REDUCER, INITIAL STATE AND ACTION TYPES
-import reducer, {initialState, LOGGED_IN, LOGGED_OUT} from './reducer';
+import reducer, {
+  initialState,
+  LOGGED_IN,
+  LOGGED_OUT,
+  GET_OFFER,
+} from './reducer';
 
 // CONFIG KEYS [Storage Keys]===================================
 export const TOKEN_KEY = 'token';
@@ -90,11 +95,26 @@ function AuthProvider(props) {
     }
   };
 
+  const getOfferById = async offer => {
+    try {
+      dispatch({type: GET_OFFER, offer}); //DISPATCH TO REDUCER
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   // ==== Les hooks avec des dépendances, tels que useEffect, useMemo et useCallback,
   // seront toujours MAJ lors de l'actualisation rapide.
   // Leur liste de dépendances sera ignorée pendant l'actualisation rapide.
   const value = useMemo(() => {
-    return {state, getAuthState, handleLogin, handleLogout, updateUser};
+    return {
+      state,
+      getAuthState,
+      handleLogin,
+      handleLogout,
+      updateUser,
+      getOfferById,
+    };
   }, [state]);
 
   return (
