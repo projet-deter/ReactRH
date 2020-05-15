@@ -5,6 +5,7 @@ import {
   Title,
   Paragraph,
   Divider,
+  Badge,
 } from 'react-native-paper';
 import React from 'react';
 
@@ -17,6 +18,7 @@ const MyComponent = ({item, onSelect}) => (
       {/* <Card.Title title={item.name} subtitle="Card Subtitle" left={LeftContent} /> */}
       <Card.Content>
         <Title>{item.name}</Title>
+        {item.statut === 'done' ? <Badge>{'Postulé'}</Badge> : null}
         <Paragraph>{item.description.substring(0, 150) + '...'}</Paragraph>
       </Card.Content>
 

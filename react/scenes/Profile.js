@@ -1,26 +1,61 @@
 import React, {useState} from 'react';
 import RNFS from 'react-native-fs';
 import {View, ScrollView} from 'react-native';
-import {Avatar, Title} from 'react-native-paper';
+import {Avatar, Title, Subheading} from 'react-native-paper';
 import Form, {TYPES} from 'react-native-basic-form';
-
-import DocumentPicker from 'react-native-document-picker';
+import * as api from '../services/auth';
 import {useAuth} from '../provider';
+import DocumentPicker from 'react-native-document-picker';
 
-export default function Home(props) {
+export default function Profile(props) {
   const [loading, setLoading] = useState(false);
-  function onSubmit(state) {
+  const {state, updateUser} = useAuth();
+  const {navigation} = props;
+
+  async function onSubmit(data) {
     setLoading(true);
+
+    try {
+      let response = await api.updateProfile(state.user._id, data);
+      updateUser(response.user);
+
+      setLoading(false);
+
+      navigation.goBack();
+    } catch (error) {
+      setLoading(false);
+    }
   }
 
-  const {state} = useAuth();
   const user = state.user;
 
+  const options = [{label: 'Female', value: 1}, {label: 'Male', value: 2}];
+
   const fields = [
-    {name: 'firstname', label: 'Prénom'},
-    {name: 'lastname', label: 'Nom'},
-    {name: 'image', label: 'Profile Image', type: TYPES.Image},
-    {name: 'birthdate', label: 'Date de naissance', type: TYPES.Date},
+    {
+      name: 'username',
+      label: 'Username',
+      //// value: user.username,
+    },
+    {
+      name: 'birthdate',
+      label: 'Age',
+      type: TYPES.Number,
+      //  value: user.age,
+    },
+    {
+      name: 'sexe',
+      label: 'Sexe',
+      required: true,
+      type: TYPES.Dropdown,
+      options: options,
+      //  value: user.sexe,
+    },
+    {
+      name: 'adresse',
+      label: 'Adresse',
+      //  value: user.adresse,
+    },
   ];
 
   async function showImagePicker() {
@@ -63,7 +98,6 @@ export default function Home(props) {
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        paddingVertical: 20,
         backgroundColor: '#fff',
       }}>
       <View
@@ -79,7 +113,8 @@ export default function Home(props) {
             }
           />
 
-          <Title>{`${user.firstname} ${user.lastname}`}</Title>
+          <Title>{`${user} `}</Title>
+          <Subheading>{`${user} `}</Subheading>
         </View>
         <View
           style={{

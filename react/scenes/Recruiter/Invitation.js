@@ -7,19 +7,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {
-  Avatar,
-  Title,
-  Paragraph,
-  Subheading,
-  Button,
-  Badge,
-} from 'react-native-paper';
+import {Avatar, Title, Paragraph, Subheading, Button} from 'react-native-paper';
 import Form from 'react-native-basic-form';
 
 import {useAuth} from '../../provider';
 
-export default function Offer(props) {
+export default function Invitation(props) {
   const [loading, setLoading] = useState(false);
   function onSubmit(state) {
     setLoading(true);
@@ -27,26 +20,8 @@ export default function Offer(props) {
 
   const {state, handleLogout} = useAuth();
   const user = state.user;
+  const offer = props.data;
 
-  const fields = [
-    {
-      name: 'motivation',
-      label: 'Decrivez vos motivations',
-      required: true,
-      multiline: true,
-    },
-    {name: 'salaire', label: 'Prétention salariale'},
-  ];
-
-  const offre = props.data;
-
-  let formProps = {
-    title: 'Valider',
-    fields,
-    onSubmit,
-    loading,
-    initialData: {...user},
-  };
   return (
     <ScrollView
       style={{
@@ -61,17 +36,9 @@ export default function Offer(props) {
         }}>
         <Button onPress={() => props.goBack()}>Retour</Button>
         <Title style={{alignSelf: 'center'}}>
-          {`[${offre.contract}] ${offre.name}`}
+          {`[${offer.contract}] ${offer.name}`}
         </Title>
-        <Subheading>{offre.begin}</Subheading>
-        <Subheading>{offre.place}</Subheading>
-        <Paragraph>{offre.description}</Paragraph>
 
-        {offre.statut === 'new' ? (
-          <Form {...formProps} />
-        ) : (
-          <Badge>{'Déjà postulé'}</Badge>
-        )}
       </View>
     </ScrollView>
   );

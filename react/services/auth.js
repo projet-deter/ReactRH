@@ -4,9 +4,13 @@ import * as c from '../constants';
 // REGISTER ================================================
 // makes API request to register the user.
 // Accepts users data as parameter.
-export async function register(data) {
+export async function register(username, password) {
   try {
-    let res = await axios.post(c.REGISTER, data);
+    let p = c.REGISTER + '?_username=' + username + '&_password=' + password;
+
+    console.log(p);
+    let res = await axios.post(p);
+    console.log(res);
 
     return res.data;
   } catch (e) {
@@ -17,6 +21,7 @@ export async function register(data) {
 // makes API request to login the user.
 // Accepts users data as parameter.
 export async function login(data) {
+  console.log(data);
   try {
     let res = await axios.post(c.LOGIN, data);
 

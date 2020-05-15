@@ -46,9 +46,9 @@ export default function FormOffer(props) {
       let response = await api.post(state);
       setLoading(false);
       Alert.alert(
-        'Votre offre a été créée avec succès.',
+        'Offer Successfully Created',
         response.message,
-        [{text: 'OK', onPress: () => navigation.replace('Home')}],
+        [{text: 'OK', onPress: () => navigation.replace('Invitation')}],
         {cancelable: false},
       );
     } catch (error) {

@@ -16,37 +16,25 @@ export default function Login(props) {
   const {handleLogin} = useAuth();
 
   const fields = [
-    {name: 'email', label: 'Email Address', required: true},
+    {name: 'username', label: 'Email Address', required: true},
     {name: 'password', label: 'Password', required: true, secure: true},
   ];
 
   async function onSubmit(state) {
     setLoading(true);
 
-    return handleLogin({
-      token: 'toto',
-      user: {
-        admin: true,
-        username: 'Maxime',
-        firstname: 'Maxime',
-        lastname: 'Toto',
-      },
-    })
-      .then(() => {
-        setLoading(false);
-        let username = 'Maxime'; //response.user.username !== null;
+    try {
+      let response = await api.login(state);
 
-        if (username) {
-          navigate('App');
-        } else {
-          navigation.replace('Username');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error.message);
-        setLoading(false);
-      });
+      await handleLogin(response);
+
+      setLoading(false);
+
+      navigate('App');
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   }
 
   let formProps = {title: 'Login', fields, onSubmit, loading};

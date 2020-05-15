@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 export default function Offers(props) {
   const {navigate} = props.navigation;
 
-  const [offre, setOffre] = useState(null);
+  const [offer, setOffre] = useState(null);
   const {state, handleLogout} = useAuth();
   const user = state.user;
 
@@ -24,20 +24,9 @@ export default function Offers(props) {
     setOffre(null);
   }
 
-  const offres = [
+  const offers = [
     {
       id: 1,
-      name: 'Développeur webbb',
-      company:
-        'SOS Accessoire est le leader Français de la vente en ligne de pièces détachées pour appareils électroménager. Nous donnons à nos clients les moyens de réparer eux-même les appareils',
-      description:
-        'Membre de l’équipe à part entière et encadré par le Responsable Web Marketing et le Content Manager, vous aurez pour mission de nous aider à créer et diffuser nos contenus sur nos différents sites web et réseaux sociaux.**Vos tâches seront variées et enrichissantes (loin du café-photocopie) :**En conformité avec la charte graphique de SOS Accessoire, vous participerez à la :* Production de divers support de communication (flyers, affiche, bannières...)* Graphisme E-mailings / newsletter / pages web* Réalisation de bannières web (FB , site, Adwords..)* Shooting photo* Mises en conformité de documents existants',
-      begin: '13-05-2020 à 19:20:03',
-      contract: 'Stage',
-      place: '75012 - Paris',
-    },
-    {
-      id: 2,
       name: 'Développeur web',
       company:
         'SOS Accessoire est le leader Français de la vente en ligne de pièces détachées pour appareils électroménager. Nous donnons à nos clients les moyens de réparer eux-même les appareils',
@@ -49,11 +38,11 @@ export default function Offers(props) {
     },
   ];
 
-  if (offre) return <Offer goBack={() => goBack()} data={offre} />;
+  if (offer) return <Offer goBack={() => goBack()} data={offer} />;
 
   return (
     <FlatList
-      data={offres}
+      data={offers}
       renderItem={({item}) => <Card item={item} onSelect={i => onSelect(i)} />}
     />
   );

@@ -3,7 +3,12 @@ import {AsyncStorage} from 'react-native';
 import axios from 'axios';
 
 //IMPORT REDUCER, INITIAL STATE AND ACTION TYPES
-import reducer, {initialState, LOGGED_IN, LOGGED_OUT} from './reducer';
+import reducer, {
+  initialState,
+  LOGGED_IN,
+  LOGGED_OUT,
+  GET_OFFER,
+} from './reducer';
 
 // CONFIG KEYS [Storage Keys]===================================
 export const TOKEN_KEY = 'token';
@@ -16,7 +21,7 @@ const AuthContext = React.createContext();
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState || {});
 
-  // Get Auth state =================================== RETURN DATA USER si loggin
+  // Get Auth state =================================== RETURN DATA USER si login
   const getAuthState = async () => {
     try {
       //GET TOKEN && USER
@@ -43,8 +48,10 @@ function AuthProvider(props) {
   const handleLogin = async data => {
     try {
       //STORE DATA
-      let {token, user} = data;
-      let data_ = [[USER_KEY, JSON.stringify(user)], [TOKEN_KEY, token]];
+      console.log(data);
+      let {token} = data;
+
+      let data_ = [[TOKEN_KEY, token]];
 
       // Stocker plusieurs paires clé-valeur. Une fois l'opération terminée, on recois un seul rappel avec nptq erreurs:
       await AsyncStorage.multiSet(data_);
@@ -88,11 +95,26 @@ function AuthProvider(props) {
     }
   };
 
+  const getOfferById = async offer => {
+    try {
+      dispatch({type: GET_OFFER, offer}); //DISPATCH TO REDUCER
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   // ==== Les hooks avec des dépendances, tels que useEffect, useMemo et useCallback,
   // seront toujours MAJ lors de l'actualisation rapide.
   // Leur liste de dépendances sera ignorée pendant l'actualisation rapide.
   const value = useMemo(() => {
-    return {state, getAuthState, handleLogin, handleLogout, updateUser};
+    return {
+      state,
+      getAuthState,
+      handleLogin,
+      handleLogout,
+      updateUser,
+      getOfferById,
+    };
   }, [state]);
 
   return (

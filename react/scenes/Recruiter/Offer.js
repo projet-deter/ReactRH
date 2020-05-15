@@ -7,28 +7,26 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {Avatar, Title, Paragraph, Subheading, Button} from 'react-native-paper';
-import Form from 'react-native-basic-form';
+import {
+  Avatar,
+  Title,
+  Paragraph,
+  Subheading,
+  Button,
+  List,
+} from 'react-native-paper';
 
 import {useAuth} from '../../provider';
 
-export default function Home(props) {
+export default function Offer(props) {
   const [loading, setLoading] = useState(false);
   function onSubmit(state) {
     setLoading(true);
   }
 
   const {state, handleLogout} = useAuth();
-  const user = state.user;
+  const offer = props.data;
 
-  const offre = props.data;
-
-  let formProps = {
-    title: 'Valider',
-    onSubmit,
-    loading,
-    initialData: {...user},
-  };
   return (
     <ScrollView
       style={{
@@ -43,13 +41,16 @@ export default function Home(props) {
         }}>
         <Button onPress={() => props.goBack()}>Retour</Button>
         <Title style={{alignSelf: 'center'}}>
-          {`[${offre.contract}] ${offre.name}`}
+          {`[${offer.contract}] ${offer.name}`}
         </Title>
-        <Subheading>{offre.begin}</Subheading>
-        <Subheading>{offre.place}</Subheading>
-        <Paragraph>{offre.description}</Paragraph>
+        <Subheading>{offer.begin}</Subheading>
+        <Subheading>{offer.place}</Subheading>
+        <Paragraph>{offer.description}</Paragraph>
 
-        <Form {...formProps} />
+        <List>{offer.candidates}</List>
+
+        <Button onPress={() => props.inviteCandidate()}>Inviter</Button>
+        <Button onPress={() => props.deleteOffer()}>Supprimer</Button>
       </View>
     </ScrollView>
   );
