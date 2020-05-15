@@ -14,11 +14,13 @@ import ForgotPasswordScreen from './scenes/auth/ForgotPassword';
 
 import HomeScreen from './scenes/home/Home';
 import UpdateProfileScreen from './scenes/home/UpdateProfile';
+import InvitationScreen from './scenes/Recruiter/Invitation';
 
 const HomeStack = createStackNavigator(
   {
     ReactRH: HomeScreen,
     UpdateProfile: UpdateProfileScreen,
+    Invitation: InvitationScreen,
     Login: LoginScreen,
   },
   {

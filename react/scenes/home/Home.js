@@ -7,8 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useAuth} from '../../provider';
 
-import OffersCandidat from '../Candidate/Offers';
-import AddToken from '../Candidate/AddToken';
+import OffersCandidate from '../Candidate/Offers';
+import OffersRecruiter from '../Recruiter/Offers';
+import FormOffer from '../Recruiter/FormOffer';
 import Profile from '../Profile';
 
 const Tab = createBottomTabNavigator();
@@ -43,16 +44,12 @@ export default function Home(props) {
             activeTintColor: 'tomato',
             inactiveTintColor: 'gray',
           }}>
-          {user && user.admin && (
-            <Tab.Screen name="Home" component={OffersCandidat} />
-          )}
-          {user && user.admin && (
-            <Tab.Screen name="Home2" component={OffersCandidat} />
-          )}
-          {<Tab.Screen name="Offres" component={OffersCandidat} />}
-          {user && user.admin && (
-            <Tab.Screen name="Ajouter une offre" component={AddToken} />
-          )}
+          {/* {user && user.admin && (
+            <Tab.Screen name="Home" component={OffersRecruiter} />
+          )} */}
+          <Tab.Screen name="Home" component={OffersCandidate} />
+          <Tab.Screen name="Offres" component={OffersRecruiter} />
+          <Tab.Screen name="Ajouter une offre" component={FormOffer} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       </NavigationContainer>

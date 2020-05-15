@@ -13,9 +13,8 @@ import {
   Paragraph,
   Subheading,
   Button,
-  Badge,
+  List,
 } from 'react-native-paper';
-import Form from 'react-native-basic-form';
 
 import {useAuth} from '../../provider';
 
@@ -26,27 +25,8 @@ export default function Offer(props) {
   }
 
   const {state, handleLogout} = useAuth();
-  const user = state.user;
+  const offer = props.data;
 
-  const fields = [
-    {
-      name: 'motivation',
-      label: 'Decrivez vos motivations',
-      required: true,
-      multiline: true,
-    },
-    {name: 'salaire', label: 'Prétention salariale'},
-  ];
-
-  const offre = props.data;
-
-  let formProps = {
-    title: 'Valider',
-    fields,
-    onSubmit,
-    loading,
-    initialData: {...user},
-  };
   return (
     <ScrollView
       style={{
@@ -61,17 +41,16 @@ export default function Offer(props) {
         }}>
         <Button onPress={() => props.goBack()}>Retour</Button>
         <Title style={{alignSelf: 'center'}}>
-          {`[${offre.contract}] ${offre.name}`}
+          {`[${offer.contract}] ${offer.name}`}
         </Title>
-        <Subheading>{offre.begin}</Subheading>
-        <Subheading>{offre.place}</Subheading>
-        <Paragraph>{offre.description}</Paragraph>
+        <Subheading>{offer.begin}</Subheading>
+        <Subheading>{offer.place}</Subheading>
+        <Paragraph>{offer.description}</Paragraph>
 
-        {offre.statut === 'new' ? (
-          <Form {...formProps} />
-        ) : (
-          <Badge>{'Déjà postulé'}</Badge>
-        )}
+        <List>{offer.candidates}</List>
+
+        <Button onPress={() => props.inviteCandidate()}>Inviter</Button>
+        <Button onPress={() => props.deleteOffer()}>Supprimer</Button>
       </View>
     </ScrollView>
   );

@@ -7,7 +7,7 @@ import * as api from '../services/auth';
 import {useAuth} from '../provider';
 import DocumentPicker from 'react-native-document-picker';
 
-export default function Home(props) {
+export default function Profile(props) {
   const [loading, setLoading] = useState(false);
   const {state, updateUser} = useAuth();
   const {navigation} = props;
